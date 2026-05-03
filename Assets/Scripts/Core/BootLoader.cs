@@ -8,6 +8,7 @@ public class BootLoader : MonoBehaviour
 {
     private void Start()
     {
+
         SceneManager.LoadScene("01_Menu");
     }
 }

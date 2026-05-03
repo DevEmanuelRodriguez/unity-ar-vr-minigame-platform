@@ -47,6 +47,11 @@ public class SceneFlowManager : MonoBehaviour
 
     public void LoadMenu()
     {
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.ResetScore();
+        }
+
         SceneManager.LoadScene("01_Menu");
         currentIndex = 0;
     }

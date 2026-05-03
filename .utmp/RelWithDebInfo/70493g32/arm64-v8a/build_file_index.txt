@@ -1,0 +1,2 @@
+C:\Users\Lenovo\Desktop\Desarrollo de Videojuego\PowerUp-Team\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\CMakeLists.txt
+C:\Users\Lenovo\Desktop\Desarrollo de Videojuego\PowerUp-Team\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\CMakeLists.txt

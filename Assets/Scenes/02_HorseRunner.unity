@@ -2590,7 +2590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd88bf6910e884418c6c69017243b69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DummyMinigame
-  pointsToAdd: 10
+  pointsToAdd: 0
 --- !u!4 &541902042
 Transform:
   m_ObjectHideFlags: 0
@@ -2895,7 +2895,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 699.5, y: -88}
+  m_AnchoredPosition: {x: 699.5, y: -112.6}
   m_SizeDelta: {x: 87.25659, y: 51.097595}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1097819503

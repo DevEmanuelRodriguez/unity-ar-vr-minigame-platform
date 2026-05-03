@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd88bf6910e884418c6c69017243b69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DummyMinigame
-  pointsToAdd: 10
+  pointsToAdd: 0
 --- !u!4 &23629999
 Transform:
   m_ObjectHideFlags: 0
