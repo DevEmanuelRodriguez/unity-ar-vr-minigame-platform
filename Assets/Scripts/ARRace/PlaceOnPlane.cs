@@ -10,16 +10,16 @@ public class PlaceOnPlane : MonoBehaviour
     private ARRaycastManager raycastManager;
     private List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
-    private GameObject spawnedObject; //guardamos el jugador
+    private GameObject spawnedObject;
 
     void Awake()
     {
-        raycastManager = FindObjectOfType<ARRaycastManager>();
+        raycastManager = FindFirstObjectByType<ARRaycastManager>();
     }
 
     void Update()
     {
-        if (spawnedObject != null) return; // ya existe → no crear más
+        if (spawnedObject != null) return;
 
         if (Input.touchCount == 0) return;
 
@@ -30,6 +30,14 @@ public class PlaceOnPlane : MonoBehaviour
             Pose hitPose = hits[0].pose;
 
             spawnedObject = Instantiate(prefab, hitPose.position, hitPose.rotation);
+
+            // 🔥 EMPEZAR PARTIDA
+            ARRaceGameManager gameManager = FindFirstObjectByType<ARRaceGameManager>();
+
+            if (gameManager != null)
+            {
+                gameManager.StartGame();
+            }
         }
     }
 }

@@ -11,6 +11,8 @@ public class ARRaceGameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI resultText;
 
+    private bool isGameStarted = false;
+
     void Start()
     {
         Time.timeScale = 1f;
@@ -20,7 +22,7 @@ public class ARRaceGameManager : MonoBehaviour
 
     void Update()
     {
-        if (!isGameOver)
+        if (!isGameOver && isGameStarted)
         {
             score += Time.deltaTime * scoreSpeed;
 
@@ -37,7 +39,10 @@ public class ARRaceGameManager : MonoBehaviour
             }
         }
     }
-
+    public void StartGame()
+    {
+        isGameStarted = true;
+    }
     public void GameOver()
     {
         if (isGameOver) return;
