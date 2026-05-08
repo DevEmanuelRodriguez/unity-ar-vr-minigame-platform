@@ -39,19 +39,10 @@ public class ObstacleSpawnerAR : MonoBehaviour
     {
         if (obstaclePrefab == null) return;
 
-        // delante del player
-        Vector3 forwardSpawn =
-            player.forward * spawnDistance;
-
-        // desplazamiento lateral relativo al player
-        Vector3 lateralOffset =
-            player.right *
-            Random.Range(-lateralRange, lateralRange);
-
+        // generar justo delante del player
         Vector3 spawnPos =
             player.position +
-            forwardSpawn +
-            lateralOffset;
+            player.forward * spawnDistance;
 
         Instantiate(
             obstaclePrefab,
