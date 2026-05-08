@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5549937620827928315}
   - component: {fileID: 2856988360189084649}
   - component: {fileID: 3975302485783217468}
-  - component: {fileID: 5086329916135018734}
   - component: {fileID: -651253130361652220}
   - component: {fileID: 9184243621075411198}
+  - component: {fileID: 4312290354239329455}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -115,20 +115,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5086329916135018734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8814071399853453327}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 965d3c42ba2d99a4e82366af4abda7ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerMover
-  moveSpeed: 3
-  limit: 0.5
 --- !u!54 &-651253130361652220
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -168,3 +154,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b569e20e12186064e81140207eb5cb79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCollisionAR
+--- !u!114 &4312290354239329455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8814071399853453327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 965d3c42ba2d99a4e82366af4abda7ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMover
+  moveSpeed: 2
+  limit: 0.5

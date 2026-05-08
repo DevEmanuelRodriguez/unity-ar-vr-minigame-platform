@@ -31,7 +31,7 @@ public class PlaceOnPlane : MonoBehaviour
 
             spawnedObject = Instantiate(prefab, hitPose.position, hitPose.rotation);
 
-            // 🔥 EMPEZAR PARTIDA
+            //  EMPEZAR PARTIDA
             ARRaceGameManager gameManager = FindFirstObjectByType<ARRaceGameManager>();
 
             if (gameManager != null)

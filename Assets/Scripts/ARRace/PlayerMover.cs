@@ -5,11 +5,11 @@ public class PlayerMover : MonoBehaviour
     public float moveSpeed = 2f;
     public float limit = 0.5f;
 
-    private Camera arCamera;
+    private Vector3 startPosition;
 
     void Start()
     {
-        arCamera = Camera.main;
+        startPosition = transform.position;
     }
 
     void Update()
@@ -18,24 +18,40 @@ public class PlayerMover : MonoBehaviour
 
         Touch touch = Input.GetTouch(0);
 
-        float screenMiddle = Screen.width / 2;
+        float screenMiddle = Screen.width / 2f;
 
-        Vector3 moveDir = Vector3.zero;
+        float moveInput = 0f;
 
         if (touch.position.x < screenMiddle)
         {
-            moveDir = -arCamera.transform.right; // izquierda respecto a cámara
+            moveInput = -1f;
         }
         else
         {
-            moveDir = arCamera.transform.right; // derecha respecto a cámara
+            moveInput = 1f;
         }
 
-        Vector3 newPos = transform.position + moveDir * moveSpeed * Time.deltaTime;
+        // mover relativo al player
+        Vector3 lateralMove =
+            transform.right *
+            moveInput *
+            moveSpeed *
+            Time.deltaTime;
 
-        // 🔒 límite lateral para no salirte
-        newPos.x = Mathf.Clamp(newPos.x, -limit, limit);
+        Vector3 targetPosition = transform.position + lateralMove;
 
-        transform.position = newPos;
+        // calcular desplazamiento lateral respecto posición inicial
+        Vector3 offset = targetPosition - startPosition;
+
+        float lateralAmount = Vector3.Dot(offset, transform.right);
+
+        // limitar movimiento lateral
+        lateralAmount = Mathf.Clamp(lateralAmount, -limit, limit);
+
+        targetPosition =
+            startPosition +
+            transform.right * lateralAmount;
+
+        transform.position = targetPosition;
     }
 }

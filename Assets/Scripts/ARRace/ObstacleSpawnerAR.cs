@@ -39,10 +39,24 @@ public class ObstacleSpawnerAR : MonoBehaviour
     {
         if (obstaclePrefab == null) return;
 
-        Vector3 spawnPos = player.position + Vector3.forward * spawnDistance;
+        // delante del player
+        Vector3 forwardSpawn =
+            player.forward * spawnDistance;
 
-        spawnPos.x += Random.Range(-lateralRange, lateralRange);
+        // desplazamiento lateral relativo al player
+        Vector3 lateralOffset =
+            player.right *
+            Random.Range(-lateralRange, lateralRange);
 
-        Instantiate(obstaclePrefab, spawnPos, Quaternion.identity);
+        Vector3 spawnPos =
+            player.position +
+            forwardSpawn +
+            lateralOffset;
+
+        Instantiate(
+            obstaclePrefab,
+            spawnPos,
+            Quaternion.LookRotation(-player.forward)
+        );
     }
 }
