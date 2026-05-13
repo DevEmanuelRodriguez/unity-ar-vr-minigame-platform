@@ -3,18 +3,46 @@ using UnityEngine;
 public class MineSpawnerSub : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private GameObject minePrefab;
+    [SerializeField]
+    private GameObject minePrefab;
 
     [Header("Spawn Timing")]
-    [SerializeField] private float spawnRate = 2f;
+    [SerializeField]
+    private float spawnRate = 2f;
+
     private float timer;
 
     [Header("Spawn Position")]
-    [SerializeField] private float spawnX = 10f;
+    [SerializeField]
+    private float spawnX = 10f;
 
-    [Header("Y Settings")]
-    [SerializeField] private float minY = -3f;
-    [SerializeField] private float maxY = 3f;
+    [Header("Lane Positions")]
+    [SerializeField]
+    private float lane1 = 3f;
+
+    [SerializeField]
+    private float lane2 = 1f;
+
+    [SerializeField]
+    private float lane3 = -1f;
+
+    [SerializeField]
+    private float lane4 = -3f;
+
+    private float[] lanes;
+
+    private int lastLane = -1;
+
+    void Start()
+    {
+        lanes = new float[]
+        {
+            lane1,
+            lane2,
+            lane3,
+            lane4
+        };
+    }
 
     void Update()
     {
@@ -29,10 +57,29 @@ public class MineSpawnerSub : MonoBehaviour
 
     void SpawnMine()
     {
-        float spawnY = Random.Range(minY, maxY);
+        int laneIndex;
 
-        Vector3 spawnPos = new Vector3(spawnX, spawnY, 0f);
+        // evitar mismo carril consecutivo
+        do
+        {
+            laneIndex =
+                Random.Range(
+                    0,
+                    lanes.Length);
+        }
+        while (laneIndex == lastLane);
 
-        Instantiate(minePrefab, spawnPos, Quaternion.identity);
+        lastLane = laneIndex;
+
+        Vector3 spawnPos =
+            new Vector3(
+                spawnX,
+                lanes[laneIndex],
+                0f);
+
+        Instantiate(
+            minePrefab,
+            spawnPos,
+            Quaternion.identity);
     }
 }
