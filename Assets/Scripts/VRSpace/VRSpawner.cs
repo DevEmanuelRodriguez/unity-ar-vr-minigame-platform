@@ -4,9 +4,10 @@ public class VRSpawner : MonoBehaviour
 {
     public GameObject targetPrefab;
 
-    public float spawnDistance = 8f;
+    public float spawnDistance = 12f;
+    public float spawnInterval = 2f;
 
-    private GameObject currentTarget;
+    private float timer;
 
     void Start()
     {
@@ -15,21 +16,27 @@ public class VRSpawner : MonoBehaviour
 
     void Update()
     {
-        if (currentTarget == null)
+        timer += Time.deltaTime;
+
+        if (timer >= spawnInterval)
         {
             SpawnTarget();
+            timer = 0f;
         }
     }
 
     void SpawnTarget()
     {
-        float randomX = Random.Range(-4f, 4f);
-        float randomY = Random.Range(0f, 3f);
+        float randomX = Random.Range(-3f, 3f);
+        float randomY = Random.Range(0f, 2.5f);
 
-        Vector3 spawnPos =
+        Vector3 spawnPosition =
             new Vector3(randomX, randomY, spawnDistance);
 
-        currentTarget =
-            Instantiate(targetPrefab, spawnPos, Quaternion.identity);
+        Instantiate(
+            targetPrefab,
+            spawnPosition,
+            Quaternion.identity
+        );
     }
 }
