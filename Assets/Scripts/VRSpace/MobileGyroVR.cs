@@ -6,13 +6,14 @@ public class MobileGyroVR : MonoBehaviour
 
     void Start()
     {
-        // bloquear orientación
+        // Forzar horizontal VR
         Screen.orientation =
-            ScreenOrientation.Portrait;
+            ScreenOrientation.LandscapeLeft;
 
-        Screen.autorotateToLandscapeLeft = false;
-        Screen.autorotateToLandscapeRight = false;
+        // bloquear rotaciones raras
+        Screen.autorotateToPortrait = false;
         Screen.autorotateToPortraitUpsideDown = false;
+        Screen.autorotateToLandscapeRight = false;
 
         if (SystemInfo.supportsGyroscope)
         {
@@ -25,7 +26,8 @@ public class MobileGyroVR : MonoBehaviour
     {
         if (gyro != null)
         {
-            Quaternion deviceRotation = gyro.attitude;
+            Quaternion deviceRotation =
+                gyro.attitude;
 
             transform.localRotation =
                 Quaternion.Euler(90, 0, 0) *
