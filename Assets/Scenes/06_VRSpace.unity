@@ -1404,6 +1404,7 @@ MonoBehaviour:
   targetPrefab: {fileID: 7818560209494019309, guid: 40a6d11900068c244bb93b88e0134cbd, type: 3}
   spawnDistance: 8
   spawnInterval: 2
+  playerCamera: {fileID: 630580489}
 --- !u!4 &1150641061
 Transform:
   m_ObjectHideFlags: 0

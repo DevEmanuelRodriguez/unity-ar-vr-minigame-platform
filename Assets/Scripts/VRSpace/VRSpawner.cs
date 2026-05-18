@@ -7,8 +7,11 @@ public class VRSpawner : MonoBehaviour
     public float spawnDistance = 12f;
     public float spawnInterval = 2f;
 
-    // cámara VR
     public Transform playerCamera;
+
+    [Header("Scale Random")]
+    public float minScale = 0.6f;
+    public float maxScale = 1.8f;
 
     private float timer;
 
@@ -33,24 +36,33 @@ public class VRSpawner : MonoBehaviour
         if (playerCamera == null)
             return;
 
-        // punto delante de donde mira
         Vector3 spawnPosition =
             playerCamera.position +
             playerCamera.forward * spawnDistance;
 
-        // pequeña variación para que no salgan EXACTAMENTE en el centro
         spawnPosition +=
             playerCamera.right *
-            Random.Range(-1.5f, 1.5f);
+            Random.Range(-2.5f, 2.5f);
 
         spawnPosition +=
             playerCamera.up *
-            Random.Range(-1f, 1f);
+            Random.Range(-2f, 2f);
 
-        Instantiate(
-            targetPrefab,
-            spawnPosition,
-            Quaternion.identity
-        );
+        GameObject newTarget =
+            Instantiate(
+                targetPrefab,
+                spawnPosition,
+                Quaternion.identity
+            );
+
+        // escala aleatoria
+        float randomScale =
+            Random.Range(
+                minScale,
+                maxScale
+            );
+
+        newTarget.transform.localScale =
+            Vector3.one * randomScale;
     }
 }
