@@ -9,6 +9,7 @@ public class VRGameScore : MonoBehaviour
     private bool isGameOver = false;
 
     [Header("UI")]
+    public TextMeshProUGUI scoreText;
     public TextMeshProUGUI resultText;
 
     void Start()
@@ -19,14 +20,32 @@ public class VRGameScore : MonoBehaviour
         {
             resultText.gameObject.SetActive(false);
         }
+
+        if (scoreText != null)
+        {
+            scoreText.text = "Score: 0";
+        }
     }
 
     void Update()
     {
         if (!isGameOver)
         {
+            // sumar score con el tiempo
             score += Time.deltaTime * scoreSpeed;
 
+            // convertir a entero
+            int displayScore =
+                Mathf.FloorToInt(score);
+
+            // actualizar UI
+            if (scoreText != null)
+            {
+                scoreText.text =
+                    "Score: " + displayScore;
+            }
+
+            // victoria
             if (score >= 100f)
             {
                 Win();
@@ -61,10 +80,20 @@ public class VRGameScore : MonoBehaviour
 
         isGameOver = true;
 
-        int finalScore = Mathf.RoundToInt(score);
-        finalScore = Mathf.Clamp(finalScore, 0, 100);
+        int finalScore =
+            Mathf.RoundToInt(score);
 
-        Debug.Log("VR GAME OVER - Score: " + finalScore);
+        finalScore =
+            Mathf.Clamp(
+                finalScore,
+                0,
+                100
+            );
+
+        Debug.Log(
+            "VR GAME OVER - Score: "
+            + finalScore
+        );
 
         ScoreManager.Instance.AddScore(finalScore);
 
@@ -85,7 +114,8 @@ public class VRGameScore : MonoBehaviour
         if (resultText != null)
         {
             resultText.gameObject.SetActive(true);
-            resultText.text = "GAME OVER";
+            resultText.text =
+                "GAME OVER";
         }
     }
 
@@ -94,7 +124,8 @@ public class VRGameScore : MonoBehaviour
         if (resultText != null)
         {
             resultText.gameObject.SetActive(true);
-            resultText.text = "YOU WIN";
+            resultText.text =
+                "YOU WIN";
         }
     }
 }
