@@ -3573,6 +3573,8 @@ MonoBehaviour:
   obstaclePrefab: {fileID: 989200859255514665, guid: 633c9b0773553f840aa4cfe6e7bc99a1, type: 3}
   minSpawnTime: 2.5
   maxSpawnTime: 4
+  minScale: 1.5
+  maxScale: 4.7
 --- !u!1 &1680415810
 GameObject:
   m_ObjectHideFlags: 0

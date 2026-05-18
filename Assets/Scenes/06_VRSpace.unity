@@ -1271,7 +1271,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: e001ed2d2f3d3e24e972a27c1a961a3b, type: 3}
+  m_Resource: {fileID: 8300000, guid: f7f98c418ff6b3841b7ea1cb8adeb961, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
@@ -1405,6 +1405,8 @@ MonoBehaviour:
   spawnDistance: 8
   spawnInterval: 2
   playerCamera: {fileID: 630580489}
+  minScale: 0.6
+  maxScale: 1.8
 --- !u!4 &1150641061
 Transform:
   m_ObjectHideFlags: 0

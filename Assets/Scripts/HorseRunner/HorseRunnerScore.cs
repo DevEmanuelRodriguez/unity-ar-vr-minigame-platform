@@ -91,7 +91,7 @@ public class HorseRunnerScore : MonoBehaviour
         ShowGameOver();
 
         // Ralentizar juego
-        Time.timeScale = 0.5f;//0.5
+        Time.timeScale = 0.2f;//0.5
 
         // Esperar y cambiar escena
         Invoke(nameof(LoadNext), 1f);
