@@ -7,6 +7,9 @@ public class VRTargetMovement : MonoBehaviour
     private Transform player;
     private VRGameScore gameScore;
 
+    // distancia para perder
+    public float hitDistance = 0.5f;
+
     void Start()
     {
         GameObject playerObject =
@@ -14,11 +17,13 @@ public class VRTargetMovement : MonoBehaviour
 
         if (playerObject != null)
         {
-            player = playerObject.transform;
+            player =
+                playerObject.transform;
         }
 
         gameScore =
-            FindObjectOfType<VRGameScore>();
+            FindObjectOfType
+            <VRGameScore>();
     }
 
     void Update()
@@ -26,19 +31,28 @@ public class VRTargetMovement : MonoBehaviour
         if (player == null)
             return;
 
+        // mover hacia jugador
         transform.position =
             Vector3.MoveTowards(
                 transform.position,
                 player.position,
-                moveSpeed * Time.deltaTime
+                moveSpeed *
+                Time.deltaTime
             );
-    }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        // comprobar distancia
+        float distance =
+            Vector3.Distance(
+                transform.position,
+                player.position
+            );
+
+        // perder si llega al jugador
+        if (distance <= hitDistance)
         {
-            Debug.Log("PLAYER HIT");
+            Debug.Log(
+                "PLAYER HIT"
+            );
 
             if (gameScore != null)
             {

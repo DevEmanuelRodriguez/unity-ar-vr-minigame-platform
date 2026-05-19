@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ARRaceGameManager : MonoBehaviour
 {
@@ -7,30 +8,39 @@ public class ARRaceGameManager : MonoBehaviour
     public float scoreSpeed = 1f;
 
     private bool isGameOver = false;
+    private bool isGameStarted = false;
 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI resultText;
-
-    private bool isGameStarted = false;
 
     void Start()
     {
         Time.timeScale = 1f;
 
-        resultText.gameObject.SetActive(false);
+        if (resultText != null)
+        {
+            resultText.gameObject
+                .SetActive(false);
+        }
     }
 
     void Update()
     {
-        if (!isGameOver && isGameStarted)
+        if (!isGameOver &&
+            isGameStarted)
         {
-            score += Time.deltaTime * scoreSpeed;
+            score +=
+                Time.deltaTime *
+                scoreSpeed;
 
-            int displayScore = Mathf.FloorToInt(score);
+            int displayScore =
+                Mathf.FloorToInt(score);
 
             if (scoreText != null)
             {
-                scoreText.text = "Score: " + displayScore;
+                scoreText.text =
+                    "Score: "
+                    + displayScore;
             }
 
             if (score >= 100f)
@@ -39,19 +49,32 @@ public class ARRaceGameManager : MonoBehaviour
             }
         }
     }
+
     public void StartGame()
     {
         isGameStarted = true;
     }
+
     public void GameOver()
     {
-        if (isGameOver) return;
+        if (isGameOver)
+            return;
 
         isGameOver = true;
 
-        int finalScore = Mathf.Clamp(Mathf.RoundToInt(score), 0, 100);
+        int finalScore =
+            Mathf.Clamp(
+                Mathf.RoundToInt(score),
+                0,
+                100
+            );
 
-        ScoreManager.Instance.AddScore(finalScore);
+        // campaña
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance
+                .AddScore(finalScore);
+        }
 
         ShowGameOver();
 
@@ -62,11 +85,17 @@ public class ARRaceGameManager : MonoBehaviour
 
     void Win()
     {
-        if (isGameOver) return;
+        if (isGameOver)
+            return;
 
         isGameOver = true;
 
-        ScoreManager.Instance.AddScore(100);
+        // campaña
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance
+                .AddScore(100);
+        }
 
         ShowWin();
 
@@ -79,18 +108,42 @@ public class ARRaceGameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-        SceneFlowManager.Instance.LoadNextScene();
+        // individual
+        if (!GameManager.Instance.isCampaignMode)
+        {
+            SceneManager.LoadScene(
+                "01_Menu"
+            );
+
+            return;
+        }
+
+        // campaña
+        SceneFlowManager.Instance
+            .LoadNextScene();
     }
 
     void ShowGameOver()
     {
-        resultText.gameObject.SetActive(true);
-        resultText.text = "GAME OVER";
+        if (resultText != null)
+        {
+            resultText.gameObject
+                .SetActive(true);
+
+            resultText.text =
+                "GAME OVER";
+        }
     }
 
     void ShowWin()
     {
-        resultText.gameObject.SetActive(true);
-        resultText.text = "YOU WIN";
+        if (resultText != null)
+        {
+            resultText.gameObject
+                .SetActive(true);
+
+            resultText.text =
+                "YOU WIN";
+        }
     }
 }

@@ -38,15 +38,25 @@ public class VRSpawner : MonoBehaviour
 
         Vector3 spawnPosition =
             playerCamera.position +
-            playerCamera.forward * spawnDistance;
+            playerCamera.forward *
+            spawnDistance;
 
+        // izquierda / derecha
         spawnPosition +=
             playerCamera.right *
-            Random.Range(-2.5f, 2.5f);
+            Random.Range(-1.5f, 1.5f);
 
+        // arriba / abajo
         spawnPosition +=
             playerCamera.up *
-            Random.Range(-2f, 2f);
+            Random.Range(-0.2f, 1f);
+
+        // evitar debajo de la tierra
+        spawnPosition.y =
+            Mathf.Max(
+                spawnPosition.y,
+                0.5f
+            );
 
         GameObject newTarget =
             Instantiate(
@@ -63,6 +73,7 @@ public class VRSpawner : MonoBehaviour
             );
 
         newTarget.transform.localScale =
-            Vector3.one * randomScale;
+            Vector3.one *
+            randomScale;
     }
 }

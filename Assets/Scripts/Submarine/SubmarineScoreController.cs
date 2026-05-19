@@ -28,11 +28,13 @@ public class SubmarineScoreController : MonoBehaviour
         {
             score += Time.deltaTime * scoreSpeed;
 
-            int displayScore = Mathf.FloorToInt(score);
+            int displayScore =
+                Mathf.FloorToInt(score);
 
             if (scoreText != null)
             {
-                scoreText.text = "Score: " + displayScore;
+                scoreText.text =
+                    "Score: " + displayScore;
             }
 
             if (score >= 100f)
@@ -50,7 +52,11 @@ public class SubmarineScoreController : MonoBehaviour
 
         Debug.Log("YOU WIN");
 
-        ScoreManager.Instance.AddScore(100);
+        // SOLO si existe ScoreManager
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.AddScore(100);
+        }
 
         ShowResult("YOU WIN");
 
@@ -65,11 +71,20 @@ public class SubmarineScoreController : MonoBehaviour
 
         isGameOver = true;
 
-        int finalScore = Mathf.FloorToInt(score);
+        int finalScore =
+            Mathf.FloorToInt(score);
 
-        Debug.Log("GAME OVER - Score: " + finalScore);
+        Debug.Log(
+            "GAME OVER - Score: "
+            + finalScore
+        );
 
-        ScoreManager.Instance.AddScore(finalScore);
+        // SOLO si existe ScoreManager
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance
+                .AddScore(finalScore);
+        }
 
         ShowResult("GAME OVER");
 
@@ -80,15 +95,19 @@ public class SubmarineScoreController : MonoBehaviour
 
     IEnumerator EndRoutine()
     {
-        
         Time.timeScale = 0f;
-        yield return new WaitForSecondsRealtime(0.05f);
 
-        
+        yield return
+            new WaitForSecondsRealtime(
+                0.05f
+            );
+
         Time.timeScale = 0.2f;
 
-        
-        yield return new WaitForSecondsRealtime(2f);
+        yield return
+            new WaitForSecondsRealtime(
+                2f
+            );
 
         LoadNext();
     }
@@ -105,13 +124,29 @@ public class SubmarineScoreController : MonoBehaviour
     {
         if (resultText != null)
         {
-            resultText.gameObject.SetActive(true);
+            resultText.gameObject
+                .SetActive(true);
+
             resultText.text = text;
         }
     }
 
     void LoadNext()
     {
-        SceneFlowManager.Instance.LoadNextScene();
+        Time.timeScale = 1f;
+
+        // individual
+        if (!GameManager.Instance.isCampaignMode)
+        {
+            UnityEngine.SceneManagement
+                .SceneManager
+                .LoadScene("01_Menu");
+
+            return;
+        }
+
+        // campaña
+        SceneFlowManager.Instance
+            .LoadNextScene();
     }
 }

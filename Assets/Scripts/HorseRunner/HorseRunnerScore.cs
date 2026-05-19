@@ -1,39 +1,42 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 /*
     mientras el juego está activo, suma puntos con el tiempo
     cuando hay game over, para el contador
     convierte el score en entero
-    lo manda al ScoreManager global 
- */
+    lo manda al ScoreManager global
+*/
 
 public class HorseRunnerScore : MonoBehaviour
 {
     public float score = 0f;
-    public float scoreSpeed = 1f;//los puntos que se ganan por segundo
+    public float scoreSpeed = 1f;
+
     private bool isGameOver = false;
+
     public TextMeshProUGUI resultText;
 
     void Start()
     {
-        Time.timeScale = 1f; // resetea velocidad del juego
-        ObstacleMove.globalSpeed = 3f;//6
+        Time.timeScale = 1f;
+        ObstacleMove.globalSpeed = 3f;
 
-        // oculta texto al inicio
-        resultText.gameObject.SetActive(false);
+        if (resultText != null)
+        {
+            resultText.gameObject.SetActive(false);
+        }
     }
 
     void Update()
     {
-        /*
-         Time.deltaTime: es el tiempo real que ha pasado entre frames
-         Ej: si el juego va a 60 FPS entonces deltaTime ≈ 0.016
-         */
         if (!isGameOver)
         {
-            score += Time.deltaTime * scoreSpeed;
+            score +=
+                Time.deltaTime *
+                scoreSpeed;
 
-            // detectar victoria
             if (score >= 100f)
             {
                 Win();
@@ -43,78 +46,111 @@ public class HorseRunnerScore : MonoBehaviour
 
     void Win()
     {
-        if (isGameOver) { 
-            return; 
+        if (isGameOver)
+        {
+            return;
         }
 
         isGameOver = true;
 
-        Debug.Log("WIN - score máximo alcanzado");
+        Debug.Log(
+            "WIN - score máximo alcanzado"
+        );
 
         int finalScore = 100;
 
-        ScoreManager.Instance.AddScore(finalScore);
+        // campaña
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance
+                .AddScore(finalScore);
+        }
 
-        /*// esperar 1 segundo antes de cambiar escena
-        Invoke(nameof(LoadNext), 1f);*/
-
-        // Mostrar mensaje
         ShowWin();
 
-        // Ralentizar juego
-        Time.timeScale = 0.2f;//0.5
+        Time.timeScale = 0.2f;
 
-        // Esperar y cambiar escena
         Invoke(nameof(LoadNext), 1f);
-
     }
 
     public void GameOver()
     {
-        if (isGameOver) { 
-            return;  
+        if (isGameOver)
+        {
+            return;
         }
 
         isGameOver = true;
 
-        int finalScore = Mathf.RoundToInt(score);
-        finalScore = Mathf.Clamp(finalScore, 0, 100);
+        int finalScore =
+            Mathf.RoundToInt(score);
 
-        Debug.Log("GAME OVER - Score: " + finalScore);
+        finalScore =
+            Mathf.Clamp(
+                finalScore,
+                0,
+                100
+            );
 
-        ScoreManager.Instance.AddScore(finalScore);
+        Debug.Log(
+            "GAME OVER - Score: "
+            + finalScore
+        );
 
-        /*// esperar 1 segundo antes de cambiar escena
-        Invoke(nameof(LoadNext), 1f);*/
+        // campaña
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance
+                .AddScore(finalScore);
+        }
 
-        // Mostrar mensaje
         ShowGameOver();
 
-        // Ralentizar juego
-        Time.timeScale = 0.2f;//0.5
+        Time.timeScale = 0.5f;
 
-        // Esperar y cambiar escena
         Invoke(nameof(LoadNext), 1f);
     }
 
-    //retardo al cambiar de escena 
     void LoadNext()
     {
-        SceneFlowManager.Instance.LoadNextScene();
+        Time.timeScale = 1f;
+
+        // individual
+        if (!GameManager.Instance.isCampaignMode)
+        {
+            SceneManager.LoadScene(
+                "01_Menu"
+            );
+
+            return;
+        }
+
+        // campaña
+        SceneFlowManager.Instance
+            .LoadNextScene();
     }
 
     public void ShowGameOver()
     {
-        resultText.gameObject.SetActive(true);        
-        resultText.text = "GAME OVER";
-        //resultText.color = Color.red;   // game over
+        if (resultText != null)
+        {
+            resultText.gameObject
+                .SetActive(true);
+
+            resultText.text =
+                "GAME OVER";
+        }
     }
 
     public void ShowWin()
     {
-        resultText.gameObject.SetActive(true);
-        resultText.text = "YOU WIN";
-        //resultText.color = Color.green; // win
-        
+        if (resultText != null)
+        {
+            resultText.gameObject
+                .SetActive(true);
+
+            resultText.text =
+                "YOU WIN";
+        }
     }
 }

@@ -1,15 +1,16 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BoatScoreController : MonoBehaviour
 {
     public float score = 0f;
-    public float scoreSpeed = 1f; // puntos por segundo
+    public float scoreSpeed = 1f;
 
     private bool isGameOver = false;
 
-    public TextMeshProUGUI scoreText;   // Score: 45
-    public TextMeshProUGUI resultText;  // YOU WIN / GAME OVER
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI resultText;
 
     public IcebergSpawner spawner;
     public BoatController boat;
@@ -18,25 +19,31 @@ public class BoatScoreController : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-        // ocultar texto de resultado al inicio
-        resultText.gameObject.SetActive(false);
+        if (resultText != null)
+        {
+            resultText.gameObject
+                .SetActive(false);
+        }
     }
 
     void Update()
     {
         if (!isGameOver)
         {
-            score += Time.deltaTime * scoreSpeed;
+            score +=
+                Time.deltaTime *
+                scoreSpeed;
 
-            int displayScore = Mathf.FloorToInt(score);
+            int displayScore =
+                Mathf.FloorToInt(score);
 
-            // mostrar score
             if (scoreText != null)
             {
-                scoreText.text = "Score: " + displayScore;
+                scoreText.text =
+                    "Score: "
+                    + displayScore;
             }
 
-            // victoria
             if (score >= 100f)
             {
                 Win();
@@ -54,14 +61,17 @@ public class BoatScoreController : MonoBehaviour
 
         int finalScore = 100;
 
-        ScoreManager.Instance.AddScore(finalScore);
+        // campaña
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance
+                .AddScore(finalScore);
+        }
 
         ShowWin();
 
-        // detener juego
         StopGame();
 
-        // ralentizar (opcional)
         Time.timeScale = 0.5f;
 
         Invoke(nameof(LoadNext), 2f);
@@ -73,12 +83,27 @@ public class BoatScoreController : MonoBehaviour
 
         isGameOver = true;
 
-        int finalScore = Mathf.RoundToInt(score);
-        finalScore = Mathf.Clamp(finalScore, 0, 100);
+        int finalScore =
+            Mathf.RoundToInt(score);
 
-        Debug.Log("GAME OVER - Score: " + finalScore);
+        finalScore =
+            Mathf.Clamp(
+                finalScore,
+                0,
+                100
+            );
 
-        ScoreManager.Instance.AddScore(finalScore);
+        Debug.Log(
+            "GAME OVER - Score: "
+            + finalScore
+        );
+
+        // campaña
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance
+                .AddScore(finalScore);
+        }
 
         ShowGameOver();
 
@@ -104,18 +129,44 @@ public class BoatScoreController : MonoBehaviour
 
     void LoadNext()
     {
-        SceneFlowManager.Instance.LoadNextScene();
+        Time.timeScale = 1f;
+
+        // individual
+        if (!GameManager.Instance.isCampaignMode)
+        {
+            SceneManager.LoadScene(
+                "01_Menu"
+            );
+
+            return;
+        }
+
+        // campaña
+        SceneFlowManager.Instance
+            .LoadNextScene();
     }
 
     public void ShowGameOver()
     {
-        resultText.gameObject.SetActive(true);
-        resultText.text = "GAME OVER";
+        if (resultText != null)
+        {
+            resultText.gameObject
+                .SetActive(true);
+
+            resultText.text =
+                "GAME OVER";
+        }
     }
 
     public void ShowWin()
     {
-        resultText.gameObject.SetActive(true);
-        resultText.text = "YOU WIN";
+        if (resultText != null)
+        {
+            resultText.gameObject
+                .SetActive(true);
+
+            resultText.text =
+                "YOU WIN";
+        }
     }
 }

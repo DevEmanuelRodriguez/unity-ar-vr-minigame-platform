@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class VRGameScore : MonoBehaviour
 {
@@ -18,12 +19,14 @@ public class VRGameScore : MonoBehaviour
 
         if (resultText != null)
         {
-            resultText.gameObject.SetActive(false);
+            resultText.gameObject
+                .SetActive(false);
         }
 
         if (scoreText != null)
         {
-            scoreText.text = "Score: 0";
+            scoreText.text =
+                "Score: 0";
         }
     }
 
@@ -31,21 +34,20 @@ public class VRGameScore : MonoBehaviour
     {
         if (!isGameOver)
         {
-            // sumar score con el tiempo
-            score += Time.deltaTime * scoreSpeed;
+            score +=
+                Time.deltaTime *
+                scoreSpeed;
 
-            // convertir a entero
             int displayScore =
                 Mathf.FloorToInt(score);
 
-            // actualizar UI
             if (scoreText != null)
             {
                 scoreText.text =
-                    "Score: " + displayScore;
+                    "Score: "
+                    + displayScore;
             }
 
-            // victoria
             if (score >= 100f)
             {
                 Win();
@@ -64,7 +66,12 @@ public class VRGameScore : MonoBehaviour
 
         int finalScore = 100;
 
-        ScoreManager.Instance.AddScore(finalScore);
+        // campaña
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance
+                .AddScore(finalScore);
+        }
 
         ShowWin();
 
@@ -95,7 +102,12 @@ public class VRGameScore : MonoBehaviour
             + finalScore
         );
 
-        ScoreManager.Instance.AddScore(finalScore);
+        // campaña
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance
+                .AddScore(finalScore);
+        }
 
         ShowGameOver();
 
@@ -106,14 +118,30 @@ public class VRGameScore : MonoBehaviour
 
     void LoadNext()
     {
-        SceneFlowManager.Instance.LoadNextScene();
+        Time.timeScale = 1f;
+
+        // individual
+        if (!GameManager.Instance.isCampaignMode)
+        {
+            SceneManager.LoadScene(
+                "01_Menu"
+            );
+
+            return;
+        }
+
+        // campaña
+        SceneFlowManager.Instance
+            .LoadNextScene();
     }
 
     void ShowGameOver()
     {
         if (resultText != null)
         {
-            resultText.gameObject.SetActive(true);
+            resultText.gameObject
+                .SetActive(true);
+
             resultText.text =
                 "GAME OVER";
         }
@@ -123,7 +151,9 @@ public class VRGameScore : MonoBehaviour
     {
         if (resultText != null)
         {
-            resultText.gameObject.SetActive(true);
+            resultText.gameObject
+                .SetActive(true);
+
             resultText.text =
                 "YOU WIN";
         }
