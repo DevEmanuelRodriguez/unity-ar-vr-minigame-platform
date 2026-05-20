@@ -120,19 +120,25 @@ public class VRGameScore : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-        // individual
-        if (!GameManager.Instance.isCampaignMode)
+        // Si no existe GameManager, volvemos al menú
+        if (GameManager.Instance == null)
         {
-            SceneManager.LoadScene(
-                "01_Menu"
-            );
-
+            SceneManager.LoadScene("01_Menu");
             return;
         }
 
-        // campaña
-        SceneFlowManager.Instance
-            .LoadNextScene();
+        // Modo individual
+        if (!GameManager.Instance.isCampaignMode)
+        {
+            SceneManager.LoadScene("01_Menu");
+            return;
+        }
+
+        // Modo campaña
+        if (SceneFlowManager.Instance != null)
+        {
+            SceneFlowManager.Instance.LoadNextScene();
+        }
     }
 
     void ShowGameOver()

@@ -4,11 +4,11 @@ public class VRTargetMovement : MonoBehaviour
 {
     public float moveSpeed = 2.5f;
 
+    // distancia base de golpe
+    public float baseHitDistance = 0.25f;
+
     private Transform player;
     private VRGameScore gameScore;
-
-    // distancia para perder
-    public float hitDistance = 0.5f;
 
     void Start()
     {
@@ -22,7 +22,7 @@ public class VRTargetMovement : MonoBehaviour
         }
 
         gameScore =
-            FindObjectOfType
+            FindFirstObjectByType
             <VRGameScore>();
     }
 
@@ -40,15 +40,22 @@ public class VRTargetMovement : MonoBehaviour
                 Time.deltaTime
             );
 
-        // comprobar distancia
         float distance =
             Vector3.Distance(
                 transform.position,
                 player.position
             );
 
-        // perder si llega al jugador
-        if (distance <= hitDistance)
+        // hit depende del tamaño
+        float scaleFactor =
+            transform.localScale.x;
+
+        float realHitDistance =
+            baseHitDistance *
+            scaleFactor;
+
+        // GAME OVER
+        if (distance <= realHitDistance)
         {
             Debug.Log(
                 "PLAYER HIT"
@@ -59,6 +66,22 @@ public class VRTargetMovement : MonoBehaviour
                 gameScore.GameOver();
             }
 
+            Destroy(gameObject);
+        }
+
+        // destruir si queda detrás
+        Vector3 directionToTarget =
+            transform.position -
+            player.position;
+
+        float dot =
+            Vector3.Dot(
+                player.forward,
+                directionToTarget.normalized
+            );
+
+        if (dot < -0.3f)
+        {
             Destroy(gameObject);
         }
     }

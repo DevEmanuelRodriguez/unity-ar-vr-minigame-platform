@@ -41,17 +41,21 @@ public class VRSpawner : MonoBehaviour
             playerCamera.forward *
             spawnDistance;
 
-        // izquierda / derecha
         spawnPosition +=
             playerCamera.right *
-            Random.Range(-1.5f, 1.5f);
+            Random.Range(
+                -3.5f,
+                3.5f
+            );
 
-        // arriba / abajo
         spawnPosition +=
             playerCamera.up *
-            Random.Range(-0.2f, 1f);
+            Random.Range(
+                -0.2f,
+                1.0f
+            );
 
-        // evitar debajo de la tierra
+        // evitar debajo del suelo
         spawnPosition.y =
             Mathf.Max(
                 spawnPosition.y,

@@ -24,20 +24,44 @@ public class VRGazeDetector : MonoBehaviour
 
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit))
+        Debug.DrawRay(
+            transform.position,
+            transform.forward * 20f,
+            Color.red
+        );
+
+        if (Physics.Raycast(
+    ray,
+    out hit,
+    20f
+))
         {
-            if (hit.collider.CompareTag("VRTarget"))
+            Debug.Log(
+                "LOOKING AT: " +
+                hit.collider.name
+            );
+
+            if (hit.collider
+                .CompareTag("VRTarget"))
             {
-                timer += Time.deltaTime;
+                timer +=
+                    Time.deltaTime;
 
                 if (timer >= gazeTime)
                 {
+                    Debug.Log(
+                        "DESTROYED: " +
+                        hit.collider.name
+                    );
+
                     if (destroySound != null)
                     {
                         destroySound.Play();
                     }
 
-                    Destroy(hit.collider.gameObject);
+                    Destroy(
+                        hit.collider.gameObject
+                    );
 
                     timer = 0f;
                 }

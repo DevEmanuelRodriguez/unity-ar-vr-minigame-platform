@@ -126,8 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae1e3d02376eda4999a3bef7000a3d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VRTargetMovement
-  moveSpeed: 0.75
-  hitDistance: 0.5
+  moveSpeed: 1.5
+  baseHitDistance: 0.25
 --- !u!54 &2501299821311173314
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -836,6 +836,7 @@ GameObject:
   - component: {fileID: 630580486}
   - component: {fileID: 630580490}
   - component: {fileID: 630580491}
+  - component: {fileID: 630580492}
   m_Layer: 0
   m_Name: LeftEyeCamera
   m_TagString: Untagged
@@ -1071,6 +1072,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &630580492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630580485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb0685f318041234bb1c43153416aa78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MouseLookVR
+  sensitivity: 100
 --- !u!1 &740674545
 GameObject:
   m_ObjectHideFlags: 0
@@ -1205,7 +1219,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1070785966}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb0685f318041234bb1c43153416aa78, type: 3}
   m_Name: 
@@ -1240,9 +1254,9 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
-  m_Radius: 2
+  m_Radius: 1
   m_Center: {x: 0, y: 1.6, z: 0}
 --- !u!1 &1087997511
 GameObject:
@@ -1541,10 +1555,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VRSpawner
   targetPrefab: {fileID: 7818560209494019309, guid: 40a6d11900068c244bb93b88e0134cbd, type: 3}
   spawnDistance: 8
-  spawnInterval: 2
+  spawnInterval: 1.5
   playerCamera: {fileID: 630580489}
   minScale: 0.3
-  maxScale: 1.8
+  maxScale: 1.5
 --- !u!4 &1150641061
 Transform:
   m_ObjectHideFlags: 0
