@@ -55,7 +55,7 @@ Main responsibilities included:
 
 ## Screenshots
 
-### Horse Runner (2D)
+### Main Menu
 ![Main Menu](docs/img/mainMenu.PNG)
 
 ### Horse Runner (2D)
