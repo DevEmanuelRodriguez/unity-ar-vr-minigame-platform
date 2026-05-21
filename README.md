@@ -54,3 +54,18 @@ Main responsibilities included:
 4. Press Play
 
 ## Screenshots
+
+### Horse Runner (2D)
+![Horse Runner](docs/img/horse2DGame.PNG)
+
+### Submarine Escape (2D)
+![Submarine Escape](docs/img/Submarine2DGame.PNG)
+
+### Boat Survival (2D)
+![Boat Survival](docs/img/Boat2DGame.PNG)
+
+### AR Racing
+![AR Racing](docs/img/ArRaceGame.PNG)
+
+### VR Space Survival
+![VR Space Survival](docs/img/VRSpaceGame.PNG)
