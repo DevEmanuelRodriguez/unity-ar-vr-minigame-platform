@@ -56,6 +56,9 @@ Main responsibilities included:
 ## Screenshots
 
 ### Horse Runner (2D)
+![Main Menu](docs/img/mainMenu.PNG)
+
+### Horse Runner (2D)
 ![Horse Runner](docs/img/horse2DGame.PNG)
 
 ### Submarine Escape (2D)
